@@ -446,8 +446,15 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
             }
             
             // Multiple selection
-            if self.multipleSelectionEnabled && self.selection.count > 1 {
-                
+            if self.multipleSelectionEnabled {
+
+                guard self.selection.count > 1 else {
+                    DispatchQueue.main.async {
+                        multipleItemsCallback([])
+                        self.delegate?.libraryViewFinishedLoading()
+                    }
+                    return
+                }
                 // Check video length
                 for asset in selectedAssets {
                     if self.fitsVideoLengthLimits(asset: asset.asset) == false {
@@ -486,7 +493,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                     multipleItemsCallback(resultMediaItems)
                     self.delegate?.libraryViewFinishedLoading()
                 }
-        } else {
+            } else {
                 let asset = selectedAssets.first!.asset
                 switch asset.mediaType {
                 case .audio, .unknown:

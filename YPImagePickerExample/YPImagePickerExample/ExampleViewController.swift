@@ -149,7 +149,7 @@ class ExampleViewController: UIViewController {
         
         /* Disable scroll to change between mode */
         // config.isScrollToChangeModesEnabled = false
-//        config.library.minNumberOfItems = 2
+        config.library.minNumberOfItems = 0
         
         /* Skip selection gallery after multiple selections */
         // config.library.skipSelectionsGallery = true
@@ -188,6 +188,13 @@ class ExampleViewController: UIViewController {
                 picker.dismiss(animated: true, completion: nil)
                 return
             }
+
+            if items.isEmpty {
+                print("Picker select no item")
+                picker.dismiss(animated: true, completion: nil)
+                return
+            }
+            
             _ = items.map { print("🧀 \($0)") }
             
             self.selectedItems = items
