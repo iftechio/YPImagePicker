@@ -62,7 +62,9 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         refreshMediaRequest()
 
         if YPConfig.library.defaultMultipleSelection {
-            multipleSelectionButtonTapped()
+            doAfterPermissionCheck { [weak self] in
+                self?.showMultipleSelection(onLoad: true)
+            }
         }
         v.assetViewContainer.multipleSelectionButton.isHidden = !(YPConfig.library.maxNumberOfItems > 1)
         v.maxNumberWarningLabel.text = String(format: YPConfig.wordings.warningMaxItemsLimit, YPConfig.library.maxNumberOfItems)
@@ -84,7 +86,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                 return YPLibrarySelection(index: -1, assetIdentifier: asset.localIdentifier)
             }
 
-            multipleSelectionEnabled = selection.count > 1
+            multipleSelectionEnabled = selection.count > 1 || YPConfig.library.defaultMultipleSelection
             v.assetViewContainer.setMultipleSelectionMode(on: multipleSelectionEnabled)
             v.collectionView.reloadData()
         }
@@ -163,7 +165,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         }
     }
     
-    private func showMultipleSelection() {
+    private func showMultipleSelection(onLoad: Bool = false) {
         if !multipleSelectionEnabled {
             selection.removeAll()
         }
@@ -176,7 +178,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
         multipleSelectionEnabled = !multipleSelectionEnabled
 
         if multipleSelectionEnabled {
-            if selection.isEmpty {
+            if selection.isEmpty && !onLoad {
                 let asset = mediaManager.fetchResult[currentlySelectedIndex]
                 selection = [
                     YPLibrarySelection(index: currentlySelectedIndex,
@@ -446,8 +448,15 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
             }
             
             // Multiple selection
-            if self.multipleSelectionEnabled && self.selection.count > 1 {
-                
+            if self.multipleSelectionEnabled {
+
+                guard self.selection.count > 1 else {
+                    DispatchQueue.main.async {
+                        multipleItemsCallback([])
+                        self.delegate?.libraryViewFinishedLoading()
+                    }
+                    return
+                }
                 // Check video length
                 for asset in selectedAssets {
                     if self.fitsVideoLengthLimits(asset: asset.asset) == false {
@@ -486,7 +495,7 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                     multipleItemsCallback(resultMediaItems)
                     self.delegate?.libraryViewFinishedLoading()
                 }
-        } else {
+            } else {
                 let asset = selectedAssets.first!.asset
                 switch asset.mediaType {
                 case .audio, .unknown:

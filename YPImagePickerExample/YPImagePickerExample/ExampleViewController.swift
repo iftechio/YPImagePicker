@@ -183,7 +183,7 @@ class ExampleViewController: UIViewController {
         /* Multiple media implementation */
         picker.didFinishPicking { [unowned picker] items, cancelled in
             
-            if cancelled {
+            if cancelled || items.isEmpty {
                 print("Picker was canceled")
                 picker.dismiss(animated: true, completion: nil)
                 return

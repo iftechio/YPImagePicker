@@ -58,7 +58,7 @@ open class YPImagePicker: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
     
-override open func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         picker.didClose = { [weak self] in
             self?._didFinishPicking?([], true)
@@ -74,6 +74,11 @@ override open func viewDidLoad() {
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             transition.type = CATransitionType.fade
             self?.view.layer.add(transition, forKey: nil)
+
+            guard items.count > 0 else {
+                self?.didSelect(items: [])
+                return
+            }
             
             // Multiple items flow
             if items.count > 1 {
