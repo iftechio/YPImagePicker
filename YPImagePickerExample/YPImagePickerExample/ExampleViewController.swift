@@ -149,8 +149,7 @@ class ExampleViewController: UIViewController {
         
         /* Disable scroll to change between mode */
         // config.isScrollToChangeModesEnabled = false
-        config.library.minNumberOfItems = 0
-        config.library.defaultMultipleSelection = true
+//        config.library.minNumberOfItems = 2
         
         /* Skip selection gallery after multiple selections */
         // config.library.skipSelectionsGallery = true
@@ -173,7 +172,7 @@ class ExampleViewController: UIViewController {
         //
         //config.library.options = options
 
-//        config.library.preselectedItems = selectedItems
+        config.library.preselectedItems = selectedItems
         
         let picker = YPImagePicker(configuration: config)
 
@@ -184,18 +183,11 @@ class ExampleViewController: UIViewController {
         /* Multiple media implementation */
         picker.didFinishPicking { [unowned picker] items, cancelled in
             
-            if cancelled {
+            if cancelled || items.isEmpty {
                 print("Picker was canceled")
                 picker.dismiss(animated: true, completion: nil)
                 return
             }
-
-            if items.isEmpty {
-                print("Picker select no item")
-                picker.dismiss(animated: true, completion: nil)
-                return
-            }
-            
             _ = items.map { print("🧀 \($0)") }
             
             self.selectedItems = items
