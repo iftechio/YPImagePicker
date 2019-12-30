@@ -150,6 +150,7 @@ class ExampleViewController: UIViewController {
         /* Disable scroll to change between mode */
         // config.isScrollToChangeModesEnabled = false
         config.library.minNumberOfItems = 0
+        config.library.defaultMultipleSelection = true
         
         /* Skip selection gallery after multiple selections */
         // config.library.skipSelectionsGallery = true
@@ -172,7 +173,7 @@ class ExampleViewController: UIViewController {
         //
         //config.library.options = options
 
-        config.library.preselectedItems = selectedItems
+//        config.library.preselectedItems = selectedItems
         
         let picker = YPImagePicker(configuration: config)
 
