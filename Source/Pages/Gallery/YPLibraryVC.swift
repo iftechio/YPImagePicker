@@ -446,17 +446,17 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
                 guard let asset = PHAsset.fetchAssets(withLocalIdentifiers: [$0.assetIdentifier], options: PHFetchOptions()).firstObject else { fatalError() }
                 return (asset, $0.cropRect)
             }
+
+            guard self.selection.count > 0 else {
+                DispatchQueue.main.async {
+                    multipleItemsCallback([])
+                    self.delegate?.libraryViewFinishedLoading()
+                }
+                return
+            }
             
             // Multiple selection
-            if self.multipleSelectionEnabled {
-
-                guard self.selection.count > 1 else {
-                    DispatchQueue.main.async {
-                        multipleItemsCallback([])
-                        self.delegate?.libraryViewFinishedLoading()
-                    }
-                    return
-                }
+            if self.multipleSelectionEnabled && self.selection.count > 1 {
                 // Check video length
                 for asset in selectedAssets {
                     if self.fitsVideoLengthLimits(asset: asset.asset) == false {
