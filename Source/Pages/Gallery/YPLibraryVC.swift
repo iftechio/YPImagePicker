@@ -90,6 +90,11 @@ public class YPLibraryVC: UIViewController, YPPermissionCheckable {
             v.assetViewContainer.setMultipleSelectionMode(on: multipleSelectionEnabled)
             v.collectionView.reloadData()
         }
+        
+        panGestureHelper.topHeight = panGestureHelper.v.assetZoomableViewMinimalVisibleHeight - panGestureHelper.v.assetViewContainer.frame.height
+        panGestureHelper.animateView()
+        panGestureHelper.dragDirection = .down
+        panGestureHelper.isImageShown = false
     }
     
     // MARK: - View Lifecycle

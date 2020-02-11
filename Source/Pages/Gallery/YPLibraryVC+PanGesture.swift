@@ -12,7 +12,7 @@ public class PanGestureHelper: NSObject, UIGestureRecognizerDelegate {
     
     var v: YPLibraryView!
     private let assetViewContainerOriginalConstraintTop: CGFloat = 0
-    private var dragDirection = YPDragDirection.up
+    var dragDirection = YPDragDirection.up
     private var imaginaryCollectionViewOffsetStartPosY: CGFloat = 0.0
     private var cropBottomY: CGFloat  = 0.0
     private var dragStartPos: CGPoint = .zero
@@ -56,7 +56,7 @@ public class PanGestureHelper: NSObject, UIGestureRecognizerDelegate {
         dragDirection = .up
     }
     
-    fileprivate func animateView() {
+    func animateView() {
         UIView.animate(withDuration: 0.2,
                        delay: 0.0,
                        options: [.curveEaseInOut, .beginFromCurrentState],
