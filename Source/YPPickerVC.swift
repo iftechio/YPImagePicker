@@ -308,6 +308,10 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         
         if mode == .library {
             libraryVC.doAfterPermissionCheck { [weak self] in
+                if libraryVC.multipleSelectionEnabled && libraryVC.selection.isEmpty,
+                    libraryVC.mediaManager.fetchResult.count > 0 {
+                    libraryVC.addToSelection(indexPath: IndexPath.init(row: 0, section: 0))
+                }
                 libraryVC.selectedMedia(photoCallback: { photo in
                     self?.didSelectItems?([YPMediaItem.photo(p: photo)])
                 }, videoCallback: { video in
