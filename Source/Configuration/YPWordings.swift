@@ -14,31 +14,31 @@ public struct YPWordings {
     public var videoDurationPopup = VideoDurationPopup()
 
     public struct PermissionPopup {
-        public var title = ypLocalized("YPImagePickerPermissionDeniedPopupTitle")
-        public var message = ypLocalized("YPImagePickerPermissionDeniedPopupMessage")
-        public var cancel = ypLocalized("YPImagePickerPermissionDeniedPopupCancel")
-        public var grantPermission = ypLocalized("YPImagePickerPermissionDeniedPopupGrantPermission")
+        public var title = "拒绝访问"
+        public var message = "请允许访问"
+        public var cancel = "取消"
+        public var grantPermission = "允许访问"
     }
     
     public struct VideoDurationPopup {
-        public var title = ypLocalized("YPImagePickerVideoDurationTitle")
-        public var tooShortMessage = ypLocalized("YPImagePickerVideoTooShort")
-        public var tooLongMessage = ypLocalized("YPImagePickerVideoTooLong")
+        public var title = "视频时长"
+        public var tooShortMessage = "视频时长小于 %@ 秒"
+        public var tooLongMessage = "视频时长大于 %@ 秒"
     }
     
-    public var ok = ypLocalized("YPImagePickerOk")
-    public var done = ypLocalized("YPImagePickerDone")
-    public var cancel = ypLocalized("YPImagePickerCancel")
-    public var save = ypLocalized("YPImagePickerSave")
-    public var processing = ypLocalized("YPImagePickerProcessing")
-    public var trim = ypLocalized("YPImagePickerTrim")
-    public var cover = ypLocalized("YPImagePickerCover")
-    public var albumsTitle = ypLocalized("YPImagePickerAlbums")
-    public var libraryTitle = ypLocalized("YPImagePickerLibrary")
-    public var cameraTitle = ypLocalized("YPImagePickerPhoto")
-    public var videoTitle = ypLocalized("YPImagePickerVideo")
-    public var next = ypLocalized("YPImagePickerNext")
-    public var filter = ypLocalized("YPImagePickerFilter")
-    public var crop = ypLocalized("YPImagePickerCrop")
-    public var warningMaxItemsLimit = ypLocalized("YPImagePickerWarningItemsLimit")
+    public var ok = "好的"
+    public var done = "完成"
+    public var cancel = "取消"
+    public var save = "保存"
+    public var processing = "处理中.."
+    public var trim = "剪辑"
+    public var cover = "封面"
+    public var albumsTitle = "相簿"
+    public var libraryTitle = "图库"
+    public var cameraTitle = "拍照"
+    public var videoTitle = "录像"
+    public var next = "下一步"
+    public var filter = "滤镜"
+    public var crop = "剪切"
+    public var warningMaxItemsLimit = "图片或视频的最多可选数量为 %d "
 }
