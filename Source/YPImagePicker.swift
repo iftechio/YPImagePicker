@@ -15,6 +15,11 @@ public protocol YPImagePickerDelegate: AnyObject {
 }
 
 open class YPImagePicker: UINavigationController {
+    public static var currentBundle: Bundle? {
+        let bundlePath = Bundle(for: self).resourcePath?.appending("/YPImagePicker.bundle") ?? ""
+        let bundle = Bundle(path: bundlePath)
+        return bundle
+    }
       
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait

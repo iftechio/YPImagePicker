@@ -11,7 +11,7 @@ import UIKit
 import Photos
 
 internal func imageFromBundle(_ named: String) -> UIImage {
-    return UIImage(named: named, in: Bundle(for: YPPickerVC.self), compatibleWith: nil) ?? UIImage()
+    return UIImage(named: named, in: YPImagePicker.currentBundle, compatibleWith: nil) ?? UIImage()
 }
 
 struct YPHelper {

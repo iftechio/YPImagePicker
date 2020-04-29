@@ -90,9 +90,8 @@ final class YPLibraryView: UIView {
 extension YPLibraryView {
     
     class func xibView() -> YPLibraryView? {
-        let bundle = Bundle(for: YPPickerVC.self)
         let nib = UINib(nibName: "YPLibraryView",
-                        bundle: bundle)
+                        bundle: YPImagePicker.currentBundle)
         let xibView = nib.instantiate(withOwner: self, options: nil)[0] as? YPLibraryView
         return xibView
     }
